@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import re
 import subprocess
 import threading
 import urllib.error
@@ -49,10 +50,21 @@ def _safe_jupyter_base(raw: str) -> str:
     return urllib.parse.urlunsplit((parsed.scheme, netloc, "", "", ""))
 
 
+def _safe_jupyter_token(raw: str) -> str:
+    fallback = "urdf-docs"
+    if not raw:
+        return fallback
+    if len(raw) > 128:
+        return fallback
+    if not re.fullmatch(r"[A-Za-z0-9._-]+", raw):
+        return fallback
+    return raw
+
+
 _JUPYTER_BASE = _safe_jupyter_base(
     os.environ.get("URDF_JUPYTER_URL", "http://127.0.0.1:8888/")
 )
-_JUPYTER_TOKEN = os.environ.get("JUPYTER_TOKEN", "urdf-docs")
+_JUPYTER_TOKEN = _safe_jupyter_token(os.environ.get("JUPYTER_TOKEN", "urdf-docs"))
 _LAUNCHER_PORT = int(os.environ.get("URDF_LAUNCHER_PORT", "8889"))
 _LAUNCHER_PREFIX = "/__urdf/jupyter"
 
@@ -70,7 +82,8 @@ def _client_is_local(environ: dict[str, Any]) -> bool:
 
 def _jupyter_running() -> bool:
     query = urllib.parse.urlencode({"token": _JUPYTER_TOKEN})
-    url = f"{_JUPYTER_BASE}/api?{query}"
+    base = urllib.parse.urlsplit(_JUPYTER_BASE)
+    url = urllib.parse.urlunsplit((base.scheme, base.netloc, "/api", query, ""))
     try:
         with urllib.request.urlopen(url, timeout=2) as response:
             return response.status == 200
