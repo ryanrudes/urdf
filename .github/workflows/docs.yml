@@ -45,6 +45,9 @@ jobs:
       - name: Build documentation
         run: uv run mkdocs build --strict
 
+      - name: Set up Pages
+        uses: actions/configure-pages@v5
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
