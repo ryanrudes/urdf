@@ -17,7 +17,7 @@ The `urdf.core.types` module provides coordinate transformation classes and NumP
 
 ## Dynamics
 
-The `urdf.dynamics` module contains representation models for rigid body physical properties, notably inertia tensors.
+The `urdf.dynamics.inertia` module contains representation models for rigid body physical properties, notably inertia tensors.
 
 ::: urdf.dynamics.inertia
     options:
@@ -28,7 +28,7 @@ The `urdf.dynamics` module contains representation models for rigid body physica
 
 ## Kinematics
 
-The `urdf.kinematics` module defines the core skeleton structure, linkage, articulation, and various joint subclasses.
+The `urdf.kinematics.kinematic_chain` module defines the core skeleton structure, linkage, articulation, and various joint subclasses.
 
 ::: urdf.kinematics.kinematic_chain
     options:
