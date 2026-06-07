@@ -23,7 +23,35 @@ log = logging.getLogger("mkdocs.plugins.jupyter_serve")
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
 _JUPYTER_SCRIPT = _REPO_ROOT / "scripts" / "docs-jupyter.sh"
-_JUPYTER_BASE = os.environ.get("URDF_JUPYTER_URL", "http://127.0.0.1:8888/").rstrip("/")
+
+
+def _safe_jupyter_base(raw: str) -> str:
+    fallback = "http://127.0.0.1:8888"
+    try:
+        parsed = urllib.parse.urlsplit(raw)
+    except ValueError:
+        return fallback
+
+    if parsed.scheme not in {"http", "https"}:
+        return fallback
+
+    host = (parsed.hostname or "").lower()
+    if host not in {"127.0.0.1", "localhost", "::1"}:
+        return fallback
+
+    if parsed.username or parsed.password or parsed.query or parsed.fragment:
+        return fallback
+
+    if parsed.path not in {"", "/"}:
+        return fallback
+
+    netloc = host if parsed.port is None else f"{host}:{parsed.port}"
+    return urllib.parse.urlunsplit((parsed.scheme, netloc, "", "", ""))
+
+
+_JUPYTER_BASE = _safe_jupyter_base(
+    os.environ.get("URDF_JUPYTER_URL", "http://127.0.0.1:8888/")
+)
 _JUPYTER_TOKEN = os.environ.get("JUPYTER_TOKEN", "urdf-docs")
 _LAUNCHER_PORT = int(os.environ.get("URDF_LAUNCHER_PORT", "8889"))
 _LAUNCHER_PREFIX = "/__urdf/jupyter"
@@ -41,7 +69,8 @@ def _client_is_local(environ: dict[str, Any]) -> bool:
 
 
 def _jupyter_running() -> bool:
-    url = f"{_JUPYTER_BASE}/api?token={_JUPYTER_TOKEN}"
+    query = urllib.parse.urlencode({"token": _JUPYTER_TOKEN})
+    url = f"{_JUPYTER_BASE}/api?{query}"
     try:
         with urllib.request.urlopen(url, timeout=2) as response:
             return response.status == 200
