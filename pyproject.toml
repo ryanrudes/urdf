@@ -28,6 +28,20 @@ Documentation = "https://ryanrudes.github.io/urdf/"
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[dependency-groups]
+dev = [
+    "mkdocs",
+    "pre-commit",
+    "pytest>=8.2",
+    "pytest-cov>=5.0",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "mkdocs-material>=9.5",
+    "mkdocstrings[python]>=0.25",
+    "jupyterlab>=4.2",
+    "ipykernel>=6.29",
+]
+
 [tool.hatch.envs.dev]
 dependencies = [
     "mkdocs",
