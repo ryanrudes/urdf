@@ -1,0 +1,22 @@
+*.py[oc]
+build/
+dist/
+site/
+*.egg-info/
+.venv/
+
+# Caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+__pycache__/
+
+# Site build
+site/
+docs/.cache/
+docs/javascripts/api-symbols.json
+
+# IDEs
+.vscode/
+.idea/
+.cursor/

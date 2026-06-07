@@ -1,0 +1,44 @@
+{
+  "g1_23dof": {
+    "class_prefix": "UnitreeG1_23DOF",
+    "constant_prefix": "UNITREE_G1_23DOF",
+    "display_name": "Unitree G1 23-DOF",
+    "description": "The Unitree G1 23-DOF humanoid robot."
+  },
+  "g1_29dof": {
+    "class_prefix": "UnitreeG1_29DOF",
+    "constant_prefix": "UNITREE_G1_29DOF",
+    "display_name": "Unitree G1 29-DOF",
+    "description": "The Unitree G1 29-DOF humanoid robot."
+  },
+  "h1": {
+    "class_prefix": "UnitreeH1",
+    "constant_prefix": "UNITREE_H1",
+    "display_name": "Unitree H1",
+    "description": "The Unitree H1 humanoid robot."
+  },
+  "h1_with_hand": {
+    "class_prefix": "UnitreeH1WithHand",
+    "constant_prefix": "UNITREE_H1_WITH_HAND",
+    "display_name": "Unitree H1 with Hand",
+    "description": "The Unitree H1 humanoid robot with a hand."
+  },
+  "t1_locomotion": {
+    "class_prefix": "BoosterT1Locomotion",
+    "constant_prefix": "BOOSTER_T1_LOCOMOTION",
+    "display_name": "Booster T1 Locomotion",
+    "description": "The Booster T1 humanoid robot with head, arms, and waist fixed (12 actuated leg DOFs)."
+  },
+  "t1_serial": {
+    "class_prefix": "BoosterT1Serial",
+    "constant_prefix": "BOOSTER_T1_SERIAL",
+    "display_name": "Booster T1 Serial",
+    "description": "The Booster T1 humanoid robot with all 23 DOFs actuated."
+  },
+  "x1": {
+    "class_prefix": "AgiBotX1",
+    "constant_prefix": "AGIBOT_X1",
+    "display_name": "AgiBot X1",
+    "description": "The AgiBot X1 humanoid robot."
+  }
+}

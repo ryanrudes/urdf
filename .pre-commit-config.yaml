@@ -1,0 +1,23 @@
+repos:
+  - repo: local
+    hooks:
+      - id: sync-robots
+        name: sync robots
+        entry: hatch run dev:sync-robots
+        language: system
+        pass_filenames: false
+      - id: ruff-format
+        name: ruff format
+        entry: hatch run dev:format
+        language: system
+        pass_filenames: false
+      - id: ruff-check
+        name: ruff check
+        entry: hatch run dev:lint
+        language: system
+        pass_filenames: false
+      - id: tests
+        name: tests
+        entry: hatch run dev:test
+        language: system
+        pass_filenames: false
