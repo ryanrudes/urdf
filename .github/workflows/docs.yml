@@ -48,12 +48,6 @@ jobs:
       - name: Disable Jekyll processing
         run: touch site/.nojekyll
 
-      - name: Set up Pages
-        uses: actions/configure-pages@v5
-        with:
-          enablement: true
-          static_site_generator: mkdocs
-
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
