@@ -4,6 +4,7 @@ dist/
 site/
 *.egg-info/
 .venv/
+.DS_Store
 
 # Caches
 .pytest_cache/
